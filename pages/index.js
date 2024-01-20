@@ -2,13 +2,13 @@
 
 import { FaSearch } from "react-icons/fa";
 import { FaFilter } from "react-icons/fa";
-import ProductDiv from "./components/ProductDiv";
+import ProductDiv from "@/components/ProductDiv";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
-import { fadeIn } from "../utils/motion";
-import Footer from "./components/Footer";
-import Filters from "./components/Filters";
+import { fadeIn } from "@/utils/motion";
+import Footer from "@/components/Footer";
+import Filters from "@/components/Filters";
 
 export default function Home() {
 	const [products, setProducts] = useState([]);
@@ -57,29 +57,19 @@ export default function Home() {
 		}
 	};
 
-	const staggerChild = {
-		hidden: { opacity: 0 },
-		show: { opacity: 1 },
-	};
-
 	return (
 		<AnimatePresence>
 			<div>
 				<div className="mx-[150px]">
-					<div className="flex justify-center gap-x-[50px]">
+					<div className="flex justify-center items-start gap-x-[50px]">
 						<motion.div
 							variants={fadeIn("down", "spring", 0, 1)}
 							initial="hidden"
 							whileInView="show"
-							className="div-color h-[500px] w-[300px] rounded-md"
+							className="div-color w-[400px] rounded-md p-4"
 						>
-							<div className="p-3">
-								<div className="flex justify-between items-center">
-									<FaFilter className="text-[#092635]" />
-									Filters
-                                </div>
-                                <Filters />
-							</div>
+							<FaFilter className="text-[#092635]" />
+							<Filters />
 						</motion.div>
 						<div className="flex flex-col gap-y-10 w-full">
 							<motion.div

@@ -18,7 +18,8 @@ export const UserProvider = ({ children }) => {
 
 	const router = useRouter();
 
-	const token = localStorage.getItem("token");
+	const token =
+		typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
 	const fetchUser = async (token) => {
 		try {

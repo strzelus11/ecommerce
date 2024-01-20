@@ -5,7 +5,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { fadeIn } from "../../utils/motion";
+import { fadeIn } from "@/utils/motion";
 
 const ProductDiv = ({ product }) => {
 	const [liked, setLiked] = useState(false);

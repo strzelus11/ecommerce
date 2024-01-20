@@ -2,17 +2,19 @@
 
 import { FaSearch } from "react-icons/fa";
 import { FaFilter } from "react-icons/fa";
-import ProductDiv from "@/app/components/ProductDiv";
+import ProductDiv from "@/components/ProductDiv";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { fadeIn } from "@/utils/motion";
+import { useRouter } from "next/router";
 
 const Categories = ({ params }) => {
 	const [products, setProducts] = useState([]);
-	const [searchQuery, setSearchQuery] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
+    const router = useRouter();
 
-	const { name } = params;
+	const name = router.query.name;
 
 	const fetchProducts = async () => {
 		try {

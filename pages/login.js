@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { useUser } from "../hooks/auth";
+import { useUser } from "@/hooks/auth";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { fadeIn } from "../../utils/motion";
+import { fadeIn } from "@/utils/motion";
 import Link from "next/link";
 
 const LoginPage = () => {

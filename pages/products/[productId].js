@@ -5,41 +5,43 @@ import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { fadeIn, slideIn } from "@/utils/motion";
 import { FaShoppingCart } from "react-icons/fa";
-import Footer from "@/app/components/Footer";
-// import { useCart } from "@/app/hooks/cart";
-import { useRouter } from "next/navigation";
+import Footer from "@/components/Footer";
+import { useRouter } from "next/router";
 
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/cart.slice";
+import toast from "react-hot-toast";
 
-const Cart = ({ params }) => {
-	const { productId } = params;
-
+const Product = () => {
 	const [product, setProduct] = useState({});
 	const [selectedImage, setSelectedImage] = useState("");
-    const router = useRouter();
-    const dispatch = useDispatch();
+	const router = useRouter();
+	const dispatch = useDispatch();
 
-	const fetchProduct = () => {
-		axios
-			.get(`http://127.0.0.1:8000/products/${productId}/`)
-			.then((response) => {
-				setProduct(response.data);
-				console.log("Product loaded:", response.data);
-				if (
-					response.data.product_images &&
-					response.data.product_images.length > 0
-				) {
-					setSelectedImage(response.data.product_images[0].image);
-				}
-			})
-			.catch((error) => {
-				console.error("Error fetching product:", error);
-			});
+	const productId = router.query.productId;
+
+	const fetchProduct = async () => {
+		try {
+			const response = await axios.get(
+				`http://127.0.0.1:8000/products/${productId}/`
+			);
+			setProduct(response.data);
+
+			if (
+				response.data.product_images &&
+				response.data.product_images.length > 0
+			) {
+				setSelectedImage(response.data.product_images[0].image);
+			}
+		} catch (error) {
+			console.error("Error fetching product:", error.response.data);
+		}
 	};
 
 	useEffect(() => {
-		fetchProduct();
+		if (productId) {
+			fetchProduct();
+		}
 	}, [productId]);
 
 	const handleImageClick = (image) => {
@@ -50,12 +52,10 @@ const Cart = ({ params }) => {
 		return image.image === selectedImage;
 	};
 
-	// const { cart, total, dispatch } = useCart();
-
-	// const addToCart = (item) => {
-	// 	dispatch({ type: "ADD", payload: item });
-	// 	router.push("/cart");
-	// };
+    const handleAddToCart = (product) => {
+		dispatch(addToCart(product));
+		toast.success(`${product.title} added to the cart`);
+	};
 
 	return (
 		<AnimatePresence>
@@ -115,7 +115,7 @@ const Cart = ({ params }) => {
 									whileHover={{ scale: 1.1, color: "hsl(157, 17%, 44%)" }}
 									whileTap={{ scale: 0.9 }}
 									className="bg-primary text-lg font-semibold text-white px-5 py-2 rounded-xl my-5 flex gap-x-3 items-center"
-									onClick={() => dispatch(addToCart(product))}
+									onClick={() => handleAddToCart(product)}
 								>
 									<FaShoppingCart />
 									Add to Cart
@@ -130,4 +130,4 @@ const Cart = ({ params }) => {
 	);
 };
 
-export default Cart;
+export default Product;
