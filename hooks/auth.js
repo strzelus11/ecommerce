@@ -50,7 +50,6 @@ export const UserProvider = ({ children }) => {
 			// Fetch user data after successful login
 			const userData = await fetchUser(access);
 			setUser(userData);
-			console.log(user);
 			router.push("/");
 			toast.success(`Hello ${userData.username}`);
 		} catch (error) {

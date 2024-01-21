@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { fadeIn } from "@/utils/motion";
 import { useRouter } from "next/router";
 
-const Categories = ({ params }) => {
+const Categories = () => {
 	const [products, setProducts] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const router = useRouter();
@@ -42,7 +42,7 @@ const Categories = ({ params }) => {
 
 	useEffect(() => {
 		fetchProducts();
-	}, []);
+	}, [name]);
 
 	const handleSearch = async (value) => {
 		setSearchQuery(value);
@@ -53,11 +53,6 @@ const Categories = ({ params }) => {
 		} else {
 			fetchProducts();
 		}
-	};
-
-	const staggerChild = {
-		hidden: { opacity: 0 },
-		show: { opacity: 1 },
 	};
 
 	return (

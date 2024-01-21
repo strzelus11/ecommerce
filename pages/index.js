@@ -13,12 +13,17 @@ import Filters from "@/components/Filters";
 export default function Home() {
 	const [products, setProducts] = useState([]);
 	const [searchQuery, setSearchQuery] = useState("");
+	const [filters, setFilters] = useState({
+		gender: "",
+		minPrice: 0,
+		maxPrice: 10000,
+	});
 
 	const fetchProducts = async () => {
 		try {
 			const response = await axios.get(`http://127.0.0.1:8000/products/`);
 			setProducts(response.data.results);
-			console.log("Products loaded:", response.data.results);
+			// console.log("Products loaded:", response.data.results);
 		} catch (error) {
 			console.error("Error fetching products:", error);
 		}
@@ -30,11 +35,29 @@ export default function Home() {
 				`http://127.0.0.1:8000/products/?search=${searchQuery}`
 			);
 			setProducts(response.data.results);
-			console.log("Search results:", response.data.results);
+			// console.log("Search results:", response.data.results);
 		} catch (error) {
 			console.error("Error searching products:", error);
 		}
 	};
+
+    const filterProducts = async (filters) => {
+        try {
+			const response = await axios.get(
+				`http://127.0.0.1:8000/products/?gender=${filters.gender}&min_price=${filters.minPrice}&max_price=${filters.maxPrice}`
+			);
+			setProducts(response.data.results);
+			console.log("Filter results:", response.data.results);
+		} catch (error) {
+			console.error("Error filtering products:", error);
+		}
+	};
+
+	const handleFilterChange = (filters) => {
+        setFilters(filters);
+        filterProducts(filters);
+    };
+    
 
 	useEffect(() => {
 		fetchProducts();
@@ -69,7 +92,7 @@ export default function Home() {
 							className="div-color w-[400px] rounded-md p-4"
 						>
 							<FaFilter className="text-[#092635]" />
-							<Filters />
+							<Filters onFilterChange={handleFilterChange} />
 						</motion.div>
 						<div className="flex flex-col gap-y-10 w-full">
 							<motion.div

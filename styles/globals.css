@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Poppins:wght@400;700&family=Raleway:wght@300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 :root {
 	--primary-color: #1b4242;
@@ -20,15 +20,14 @@
 
 body {
 	color: var(--primary-color);
-	font-family: "Nunito", "Lucida Sans Unicode", "Lucida Grande",
-		"Lucida Sans", Arial, sans-serif;
+	font-family: "Montserrat", sans-serif;
 	background: radial-gradient(
 		ellipse at 50% 50%,
 		rgba(121, 155, 143, 1) 0%,
 		rgba(9, 38, 53, 1) 100%
 	);
 	/* background: radial-gradient(ellipse at 50% 50%, rgba(255, 205, 0, 1) 0%, rgba(0, 0, 0, 1) 100%); */
-	min-height: calc(100vh - 4rem);
+	min-height: calc(100vh - 7rem);
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 const Filters = ({ onFilterChange }) => {
 	const [gender, setGender] = useState("");
@@ -7,7 +8,9 @@ const Filters = ({ onFilterChange }) => {
 	const [maxPrice, setMaxPrice] = useState(10000);
 
 	const handleFilterChange = () => {
-		onFilterChange({ gender, minPrice, maxPrice });
+		const filters = { gender, minPrice, maxPrice };
+        onFilterChange(filters);
+        toast.success("Filters applied")
 	};
 
 	return (
@@ -30,9 +33,9 @@ const Filters = ({ onFilterChange }) => {
 							<input
 								className="cursor-pointer"
 								type="radio"
-								value="male"
-								checked={gender === "male"}
-								onChange={() => setGender("male")}
+								value="M"
+								checked={gender === "M"}
+								onChange={() => setGender("M")}
 							/>
 							Male
 						</label>
@@ -40,9 +43,9 @@ const Filters = ({ onFilterChange }) => {
 							<input
 								className="cursor-pointer"
 								type="radio"
-								value="female"
-								checked={gender === "female"}
-								onChange={() => setGender("female")}
+								value="F"
+								checked={gender === "F"}
+								onChange={() => setGender("F")}
 							/>
 							Female
 						</label>

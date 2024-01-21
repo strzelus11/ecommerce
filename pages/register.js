@@ -25,7 +25,8 @@ const RegisterPage = () => {
 				password,
 				password2,
 			});
-			router.push("/login");
+            router.push("/login");
+            toast.success("You've successfully registered!")
 		} catch (error) {
 			if (error.response) {
 				console.error(
@@ -44,10 +45,8 @@ const RegisterPage = () => {
 				// toast.error(error.response.data.error);
 				console.error("Error response data:", error.response.data);
 			} else if (error.request) {
-				// The request was made but no response was received
 				console.error("No response received from the server");
 			} else {
-				// Something happened in setting up the request that triggered an Error
 				console.error("Error while setting up the request:", error.message);
 			}
 		}

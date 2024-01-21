@@ -1,3 +1,5 @@
+"use client"
+
 import { createSlice, current } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({

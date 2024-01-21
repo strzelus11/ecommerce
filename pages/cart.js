@@ -14,9 +14,9 @@ import {
 	decrementQuantity,
 	removeFromCart,
 } from "@/redux/cart.slice";
+import toast from "react-hot-toast";
 
 const Cart = () => {
-
 	const cart = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
 
@@ -37,9 +37,7 @@ const Cart = () => {
 					className="div-color rounded-md p-3 w-[50%]"
 				>
 					{cart.length === 0 ? (
-                        <h2 className="text-xl text-center">
-                            Your cart is empty
-                        </h2>
+						<h2 className="text-xl text-center">Your cart is empty</h2>
 					) : (
 						<>
 							<div className="divide-y-2 divide-secondary">
@@ -79,7 +77,12 @@ const Cart = () => {
 											<p className="w-24 mr-10">
 												${parseFloat(item.price).toFixed(2)}
 											</p>
-											<button onClick={() => dispatch(removeFromCart(item.id))}>
+											<button
+												onClick={() => {
+													dispatch(removeFromCart(item.id));
+													toast.error(`${item.title} removed from the cart`);
+												}}
+											>
 												<FaTrashAlt className="w-6 h-6 hover:scale-110 hover:text-red-700 transition" />
 											</button>
 										</div>
